@@ -8,6 +8,15 @@ if (!defined('DB_HOST')) {
     define('DB_NAME', 'student_academic_db');
 }
 
+if (!defined('SMTP_HOST')) {
+    define('SMTP_HOST', 'smtp.gmail.com');
+    define('SMTP_PORT', 465);
+    define('SMTP_USERNAME', 'leonardolllmacalinaoisap1@gmail.com');
+    define('SMTP_PASSWORD', 'ebdp xlit dlqr vcks');
+    define('SMTP_FROM_EMAIL', SMTP_USERNAME);
+    define('SMTP_FROM_NAME', 'AI Student Predictor');
+}
+
 function get_db_connection()
 {
     static $connection = null;
@@ -46,6 +55,8 @@ function initialize_database()
     } while ($server->more_results() && $server->next_result());
 
     $connection = get_db_connection();
+    apply_pending_schema_updates($connection);
+
     $result = $connection->query('SELECT COUNT(*) AS total FROM users');
     $row = $result->fetch_assoc();
     if ((int) $row['total'] === 0) {
@@ -53,6 +64,78 @@ function initialize_database()
     }
 
     return $connection;
+}
+
+function apply_pending_schema_updates($connection)
+{
+    $indexResult = $connection->query("SHOW INDEX FROM users WHERE Column_name = 'email'");
+    $hasEmailUnique = false;
+    while ($row = $indexResult->fetch_assoc()) {
+        if ((int) $row['Non_unique'] === 0) {
+            $hasEmailUnique = true;
+            break;
+        }
+    }
+
+    if (!$hasEmailUnique) {
+        $connection->query('ALTER TABLE users ADD UNIQUE INDEX email_unique (email)');
+    }
+
+    $columns = [
+        'is_email_verified' => 'TINYINT(1) DEFAULT 0',
+    ];
+
+    foreach ($columns as $name => $definition) {
+        $columnResult = $connection->query("SHOW COLUMNS FROM users LIKE '{$name}'");
+        if ($columnResult->num_rows === 0) {
+            $connection->query("ALTER TABLE users ADD COLUMN {$name} {$definition}");
+        }
+    }
+
+    // Ensure grades.subject_id exists and migrate existing subject strings into subjects table
+    $colRes = $connection->query("SHOW COLUMNS FROM grades LIKE 'subject_id'");
+    if ($colRes->num_rows === 0) {
+        $connection->query("ALTER TABLE grades ADD COLUMN subject_id INT DEFAULT NULL");
+        // add foreign key if subjects table exists
+        $hasSubjects = $connection->query("SHOW TABLES LIKE 'subjects'")->num_rows > 0;
+        if ($hasSubjects) {
+            // migrate distinct subject names into subjects table
+            $distinct = $connection->query("SELECT DISTINCT subject FROM grades WHERE subject IS NOT NULL AND subject != ''");
+            if ($distinct) {
+                while ($r = $distinct->fetch_assoc()) {
+                    $sname = $r['subject'];
+                    if (!$sname) continue;
+                    $check = $connection->prepare('SELECT id FROM subjects WHERE name = ? LIMIT 1');
+                    $check->bind_param('s', $sname);
+                    $check->execute();
+                    $cres = $check->get_result();
+                    if ($cres->num_rows === 0) {
+                        $ins = $connection->prepare('INSERT INTO subjects (name) VALUES (?)');
+                        $ins->bind_param('s', $sname);
+                        $ins->execute();
+                        $newId = $ins->insert_id;
+                        $ins->close();
+                    } else {
+                        $row = $cres->fetch_assoc();
+                        $newId = $row['id'];
+                    }
+                    $check->close();
+
+                    // update grades
+                    $upd = $connection->prepare('UPDATE grades SET subject_id = ? WHERE subject = ?');
+                    $upd->bind_param('is', $newId, $sname);
+                    $upd->execute();
+                    $upd->close();
+                }
+            }
+        }
+        // attempt to add FK; ignore errors
+        try {
+            $connection->query("ALTER TABLE grades ADD CONSTRAINT fk_grades_subject FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE SET NULL");
+        } catch (Exception $e) {
+            // ignore if FK already exists or subjects table absent
+        }
+    }
 }
 
 function import_demo_data($connection)
@@ -64,16 +147,16 @@ function import_demo_data($connection)
     ];
 
     foreach ($defaultUsers as $user) {
-        $stmt = $connection->prepare('INSERT INTO users (username, password_hash, role, full_name, email) VALUES (?, ?, ?, ?, ?)');
-        $stmt->bind_param('sssss', $user[0], $hash, $user[3], $user[1], $user[2]);
         $hash = password_hash($user[4], PASSWORD_DEFAULT);
+        $stmt = $connection->prepare('INSERT INTO users (username, password_hash, role, full_name, email, is_email_verified) VALUES (?, ?, ?, ?, ?, 1)');
+        $stmt->bind_param('sssss', $user[0], $hash, $user[3], $user[1], $user[2]);
         $stmt->execute();
         $userId = $stmt->insert_id;
         $stmt->close();
 
         if ($user[3] === 'teacher') {
             $teacherStmt = $connection->prepare('INSERT INTO teachers (user_id, department, phone) VALUES (?, ?, ?)');
-            $department = 'Mathematics';
+            $department = 'General Sciences';
             $phone = '09170000001';
             $teacherStmt->bind_param('iss', $userId, $department, $phone);
             $teacherStmt->execute();
@@ -81,19 +164,19 @@ function import_demo_data($connection)
         }
 
         if ($user[3] === 'student') {
-            $studentStmt = $connection->prepare('INSERT INTO students (user_id, student_id, program, phone, guardian_name, attendance, study_hours, assignments, quiz_score, predicted_grade, final_grade, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-            $studentStmt->bind_param('issssiiiiiii', $userId, $studentId, $program, $phone, $guardianName, $attendance, $studyHours, $assignments, $quizScore, $predictedGrade, $finalGrade, $status);
             $studentId = 'STU000';
-            $program = 'Computer Science';
+            $program = 'Bachelor of Science';
             $phone = '09170000002';
-            $guardianName = 'Student Guardian';
+            $guardianName = 'Guardian';
             $attendance = 90;
-            $studyHours = 8;
+            $studyHours = 10;
             $assignments = 88;
             $quizScore = 90;
             $predictedGrade = 89;
             $finalGrade = 90;
             $status = 'Active';
+            $studentStmt = $connection->prepare('INSERT INTO students (user_id, student_id, program, phone, guardian_name, attendance, study_hours, assignments, quiz_score, predicted_grade, final_grade, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+            $studentStmt->bind_param('issssiiiiiii', $userId, $studentId, $program, $phone, $guardianName, $attendance, $studyHours, $assignments, $quizScore, $predictedGrade, $finalGrade, $status);
             $studentStmt->execute();
             $studentStmt->close();
         }
@@ -104,37 +187,61 @@ function import_demo_data($connection)
         return;
     }
 
+    // seed some common subjects for selection in teacher grade entry
+    $defaultSubjects = [
+        ['MATH101', 'Mathematics'],
+        ['PHYS101', 'Physics'],
+        ['CS101', 'Computer Science'],
+        ['ENG101', 'English Composition'],
+        ['PROG101', 'Introduction to Programming']
+    ];
+    foreach ($defaultSubjects as $sub) {
+        $stmt = $connection->prepare('SELECT id FROM subjects WHERE name = ? LIMIT 1');
+        $stmt->bind_param('s', $sub[1]);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) {
+            $ins = $connection->prepare('INSERT INTO subjects (subject_code, name) VALUES (?, ?)');
+            $ins->bind_param('ss', $sub[0], $sub[1]);
+            $ins->execute();
+            $ins->close();
+        }
+        $stmt->close();
+    }
+
     $handle = fopen($csvPath, 'r');
-    fgetcsv($handle);
-    while (($row = fgetcsv($handle)) !== false) {
+    $header = fgetcsv($handle);
+    $importCount = 0;
+    while (($row = fgetcsv($handle)) !== false && $importCount < 300) {
         $studentId = $row[0];
         $name = $row[1];
         $attendance = (int) $row[2];
         $studyHours = (int) $row[3];
         $assignments = (int) $row[4];
         $quizScore = (int) $row[5];
-        $finalGrade = (int) $row[6];
+        $predictedGrade = (int) $row[6];
+        $finalGrade = (int) $row[7];
 
-        $username = strtolower(str_replace(' ', '', $name)) . rand(10, 99);
-        $email = strtolower(str_replace(' ', '', $name)) . '@school.edu';
+        $username = 'stu' . strtolower(substr($studentId, -4)) . rand(1, 99);
+        $email = strtolower($studentId) . '@university.edu';
         $password = password_hash('student123', PASSWORD_DEFAULT);
-
-        $userStmt = $connection->prepare('INSERT INTO users (username, password_hash, role, full_name, email) VALUES (?, ?, ?, ?, ?)');
-        $userStmt->bind_param('sssss', $username, $password, $role, $name, $email);
         $role = 'student';
+
+        $userStmt = $connection->prepare('INSERT INTO users (username, password_hash, role, full_name, email, is_email_verified) VALUES (?, ?, ?, ?, ?, 1)');
+        $userStmt->bind_param('sssss', $username, $password, $role, $name, $email);
         $userStmt->execute();
         $userId = $userStmt->insert_id;
         $userStmt->close();
 
+        $program = 'Tertiary Programs';
+        $phone = '0917' . str_pad((string) $importCount, 7, '0', STR_PAD_LEFT);
+        $guardianName = 'Guardian';
+        $status = 'Active';
         $studentStmt = $connection->prepare('INSERT INTO students (user_id, student_id, program, phone, guardian_name, attendance, study_hours, assignments, quiz_score, predicted_grade, final_grade, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $studentStmt->bind_param('issssiiiiiii', $userId, $studentId, $program, $phone, $guardianName, $attendance, $studyHours, $assignments, $quizScore, $predictedGrade, $finalGrade, $status);
-        $program = 'Computer Science';
-        $phone = '0917000000' . rand(10, 99);
-        $guardianName = 'Guardian';
-        $predictedGrade = (int) round(($attendance * 0.4) + ($studyHours * 2) + ($assignments * 0.3) + ($quizScore * 0.3));
-        $status = 'Active';
         $studentStmt->execute();
         $studentStmt->close();
+        $importCount++;
     }
 
     fclose($handle);

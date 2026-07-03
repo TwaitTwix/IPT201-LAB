@@ -1,0 +1,25 @@
+[2026-07-02 20:12:48] ERROR: SMTP authentication failed | {"response":"535-5.7.8 Username and Password not accepted. For more information, go to\r\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-2ca9aa38fc5sm17099355ad.4 - gsmtp\r\n","host":"smtp.gmail.com","port":465,"username":"your_gmail_username@gmail.com"}
+[2026-07-02 20:12:48] ERROR: Verification email failed to send | {"email":"leonardolllmacalinaoisap4@gmail.com","code":"805903"}
+[2026-07-02 20:12:48] ERROR: Registration verification email failed | {"email":"leonardolllmacalinaoisap4@gmail.com","user_id":21}
+[2026-07-03 05:49:48] ERROR: SMTP authentication failed | {"response":"535-5.7.8 Username and Password not accepted. For more information, go to\r\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-847cb99f546sm2220095b3a.46 - gsmtp\r\n","host":"smtp.gmail.com","port":465,"username":"your_gmail_username@gmail.com"}
+[2026-07-03 05:49:48] ERROR: Verification email failed to send | {"email":"leonardolllmacalinaoisap5@gmail.com","code":"831653"}
+[2026-07-03 05:49:48] ERROR: Registration verification email failed | {"email":"leonardolllmacalinaoisap5@gmail.com","user_id":22}
+[2026-07-03 06:04:43] INFO: SMTP email sent | {"to":"leonardolllmacalinaoisap5@gmail.com","subject":"Account approved"}
+[2026-07-03 06:04:50] INFO: SMTP email sent | {"to":"leonardolllmacalinaoisap4@gmail.com","subject":"Account approved"}
+[2026-07-03 06:04:55] INFO: SMTP email sent | {"to":"leonardolllmacalinaoisap3@gmail.com","subject":"Account approved"}
+[2026-07-03 06:05:01] INFO: SMTP email sent | {"to":"leonardolllmacalinaoisap1@gmail.com","subject":"Account approved"}
+[2026-07-03 06:05:05] INFO: SMTP email sent | {"to":"leonardolllmacalinao1@gmail.com","subject":"Account approved"}
+[2026-07-03 06:05:11] INFO: SMTP email sent | {"to":"leonardolllmacalinaoisap@gmail.com","subject":"Account approved"}
+[2026-07-03 06:05:15] INFO: SMTP email sent | {"to":"anasantos@school.edu","subject":"Account approved"}
+[2026-07-03 06:05:21] INFO: SMTP email sent | {"to":"beacruz@school.edu","subject":"Account approved"}
+[2026-07-03 06:05:24] INFO: SMTP email sent | {"to":"beacruz@school.edu","subject":"Account approved"}
+[2026-07-03 06:05:31] INFO: SMTP email sent | {"to":"carlosdela@school.edu","subject":"Account approved"}
+[2026-07-03 06:05:34] INFO: SMTP email sent | {"to":"danareyes@school.edu","subject":"Account approved"}
+[2026-07-03 06:05:42] INFO: SMTP email sent | {"to":"elijahflores@school.edu","subject":"Account approved"}
+[2026-07-03 06:05:46] INFO: SMTP email sent | {"to":"fionagomez@school.edu","subject":"Account approved"}
+[2026-07-03 06:06:32] INFO: SMTP email sent | {"to":"greglim@school.edu","subject":"Account approved"}
+[2026-07-03 06:06:35] INFO: SMTP email sent | {"to":"hanaperez@school.edu","subject":"Account approved"}
+[2026-07-03 06:06:42] INFO: SMTP email sent | {"to":"iantorres@school.edu","subject":"Account approved"}
+[2026-07-03 06:06:48] INFO: SMTP email sent | {"to":"jessanavarro@school.edu","subject":"Account approved"}
+[2026-07-03 06:06:52] INFO: SMTP email sent | {"to":"kylesantos@school.edu","subject":"Account approved"}
+[2026-07-03 06:06:57] INFO: SMTP email sent | {"to":"liamendoza@school.edu","subject":"Account approved"}

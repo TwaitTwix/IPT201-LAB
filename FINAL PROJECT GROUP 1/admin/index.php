@@ -13,6 +13,7 @@ $teachers = $connection->query('SELECT t.id, u.full_name, t.department FROM teac
 <div class="grid" style="margin-top:16px;">
     <div class="card"><h2>Student roster</h2><a class="btn" href="students.php">Open roster</a></div>
     <div class="card"><h2>Teacher roster</h2><a class="btn secondary" href="teachers.php">Open roster</a></div>
+    <div class="card"><h2>Pending approvals</h2><a class="btn secondary" href="pending_accounts.php">Review pending accounts</a></div>
 </div>
 <div class="card" style="margin-top:16px;">
     <h2>Latest students</h2>
