@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash VARCHAR(255) NOT NULL,
   role ENUM('admin','teacher','student') NOT NULL,
   full_name VARCHAR(100) NOT NULL,
-  email VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  is_email_verified TINYINT(1) DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -37,6 +38,13 @@ CREATE TABLE IF NOT EXISTS students (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS subjects (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  subject_code VARCHAR(50) UNIQUE,
+  name VARCHAR(150) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS attendance_records (
   id INT AUTO_INCREMENT PRIMARY KEY,
   student_id INT NOT NULL,
@@ -50,6 +58,7 @@ CREATE TABLE IF NOT EXISTS grades (
   id INT AUTO_INCREMENT PRIMARY KEY,
   student_id INT NOT NULL,
   subject VARCHAR(50) NOT NULL,
+  subject_id INT DEFAULT NULL,
   assignment_score INT NOT NULL,
   quiz_score INT NOT NULL,
   exam_score INT NOT NULL,
@@ -57,7 +66,8 @@ CREATE TABLE IF NOT EXISTS grades (
   encoded_by INT NOT NULL,
   encoded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
-  FOREIGN KEY (encoded_by) REFERENCES users(id) ON DELETE CASCADE
+  FOREIGN KEY (encoded_by) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS notifications (
