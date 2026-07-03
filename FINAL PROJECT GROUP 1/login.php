@@ -9,17 +9,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = get_user_by_username($username);
 
     if ($user && password_verify($password, $user['password_hash'])) {
-        $_SESSION['user'] = [
-            'id' => $user['id'],
-            'username' => $user['username'],
-            'role' => $user['role'],
-            'full_name' => $user['full_name'],
-            'email' => $user['email']
-        ];
-        redirect('dashboard.php');
+        if (empty($user['is_email_verified'])) {
+            $message = 'Your account is pending admin approval. Please wait for an administrator to verify your account.';
+        } else {
+            $_SESSION['user'] = [
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'role' => $user['role'],
+                'full_name' => $user['full_name'],
+                'email' => $user['email']
+            ];
+            redirect('dashboard.php');
+        }
+    } else {
+        $message = 'Invalid username or password.';
     }
-
-    $message = 'Invalid username or password.';
 }
 ?>
 <div class="card">

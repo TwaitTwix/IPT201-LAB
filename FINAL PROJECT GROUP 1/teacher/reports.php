@@ -8,7 +8,7 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $studentId = (int) ($_POST['student_id'] ?? 0);
-    $student = $connection->query('SELECT s.*, u.full_name FROM students s JOIN users u ON u.id = s.user_id WHERE s.id = ' . $studentId)->fetch_assoc();
+    $student = $connection->query('SELECT s.*, u.full_name, u.email, u.is_email_verified FROM students s JOIN users u ON u.id = s.user_id WHERE s.id = ' . $studentId)->fetch_assoc();
     $summary = 'Student ' . $student['full_name'] . ' has attendance ' . $student['attendance'] . '%, predicted grade ' . $student['predicted_grade'] . '%, and final grade ' . $student['final_grade'] . '%.';
     $stmt = $connection->prepare('INSERT INTO reports (student_id, generated_by, summary) VALUES (?, ?, ?)');
     $stmt->bind_param('iis', $studentId, $user['id'], $summary);
@@ -16,6 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
     create_notification($user['id'], 'Report generated', $summary);
     create_notification($student['user_id'], 'Report generated', $summary);
+    
+    // Send email to student if verified
+    if ($student['is_email_verified'] && $student['email']) {
+        $emailSubject = 'Your Academic Report';
+        $emailBody = "Dear " . htmlspecialchars($student['full_name']) . ",\n\n";
+        $emailBody .= "Your academic report has been generated:\n\n";
+        $emailBody .= $summary . "\n\n";
+        $emailBody .= "Please log in to your account to view more details.\n\n";
+        $emailBody .= "Best regards,\nAI Student Predictor System";
+        send_smtp_email($student['email'], $emailSubject, $emailBody);
+    }
+    
     $message = 'Report generated.';
 }
 
