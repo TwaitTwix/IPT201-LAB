@@ -1,0 +1,281 @@
+AI STUDENT ACADEMIC PREDICTOR
+WITH ENHANCED ANALYTICS
+
+A System Documentation
+Presented to
+MR. FRANK JOHNDELF MANGULAD
+AND PANELIST
+
+In fulfilment
+Of the Requirements in
+Integrative Programming
+Presented By:
+LEONARDO MACALINAO III
+GROUP 1 MEMBERS
+
+Date Submitted:
+07/03/2026
+
+
+
+
+
+
+INTRODUCTION
+What is the purpose of the system?
+The AI Student Academic Predictor is a web-based academic management system designed to predict student performance using advanced algorithms and provide comprehensive analytics for students, teachers, and administrators. Unlike traditional grade tracking systems that simply record grades, this system uses enhanced prediction formulas with multiple weighted factors including attendance, study hours, assignment completion, quiz performance, consistency factors, and trend analysis to accurately forecast final grades.
+
+Who will use it?
+This system is intended for educational institutions including universities, colleges, and schools. It serves three primary user groups: students who want to track their academic progress and predictions, teachers who need to encode grades and monitor student performance, and administrators who require system-wide analytics and user management capabilities. It is particularly useful for institutions that want to implement early intervention strategies for at-risk students.
+
+What problem does it solve?
+Traditional academic management systems often treat grades as static records without providing predictive insights or visual analytics. This system solves that problem by:
+•	Automatically calculating predicted final grades using multi-factor algorithms
+•	Providing visual attendance heatmap patterns to identify attendance issues
+•	Offering subject-specific performance breakdowns with progress tracking
+•	Calculating GPA on a 4.0 scale with academic standing determination
+•	Identifying at-risk students before they fail through early warning systems
+•	Generating comprehensive reports for teachers, students, and administrators
+•	Implementing consistency and trend factors for more accurate predictions
+
+OBJECTIVES
+•	To develop a web-based academic management system using PHP and MySQL
+•	To implement enhanced grade prediction algorithms with multiple weighted factors
+•	To apply core web development concepts including database design, session management, and role-based access control
+•	To create data visualization components including attendance heatmaps and performance breakdowns
+•	To implement GPA calculation system with 4.0 scale conversion
+•	To develop at-risk student detection system for early intervention
+•	To provide persistent data storage through MySQL database with proper relationships
+•	To implement email notification system for account approvals and alerts
+•	To demonstrate how web applications can support academic analytics and prediction
+
+SYSTEM DESCRIPTION
+The AI Student Academic Predictor is a PHP-based web application that combines traditional academic management with intelligent prediction algorithms and data visualization. The system consists of multiple PHP modules working together:
+1.	includes/db.php - Database connection and schema management functions
+2.	includes/functions.php - Core system functions for predictions, GPA calculation, and analytics
+3.	includes/header.php - Navigation and layout components with role-based menus
+4.	includes/footer.php - Page footer components
+5.	dashboard.php - Role-based dashboard with statistics and quick actions
+6.	student/ - Student-specific pages (profile, predict, analytics, reports)
+7.	teacher/ - Teacher-specific pages (encode grades, attendance, reports)
+8.	admin/ - Administrator-specific pages (user management, analytics)
+The system uses a weighted scoring system combining multiple factors:
+•	Attendance (20%) - Tracks student presence and engagement
+•	Study Hours (25%) - Measures time dedicated to academic work
+•	Assignments (25%) - Evaluates homework completion and quality
+•	Quiz Score (30%) - Assesses understanding through regular assessments
+•	Consistency Factor (±5%) - Calculates performance stability
+•	Trend Factor (±2%) - Analyzes improvement or decline patterns
+
+FEATURES OF THE SYSTEM
+Feature:				Description:
+User Registration		Allows students, teachers, and admins to create accounts with email verification
+Role-Based Access		Different interfaces and permissions for students, teachers, and administrators
+Grade Prediction		Enhanced algorithm using attendance, study hours, assignments, and quizzes
+GPA Calculation		Automatic GPA calculation on 4.0 scale with grade conversion
+At-Risk Detection		Identifies students with predicted grades below 70% for early intervention
+Attendance Heatmap		12-week visual attendance pattern display with color-coded status
+Subject Breakdown		Per-subject performance analysis with assignment, quiz, and exam averages
+Profile Management		Students can update personal information and contact details
+Grade Encoding		Teachers can encode grades by subject with assignment, quiz, and exam scores
+Attendance Recording		Teachers can record daily attendance with status and remarks
+Report Generation		Comprehensive academic reports for students and system-wide analytics
+Email Notifications		Automated emails for account approvals and system alerts
+Account Approval		Admin approval workflow for new user registrations
+
+Advanced Features
+Enhanced Prediction Formula - Multi-factor algorithm with consistency and trend analysis for accurate grade forecasting
+Attendance Heatmap Visualization - 12-week grid display with color-coded cells (Present, Late, Absent, Excused) for pattern identification
+Subject Performance Breakdown - Detailed per-subject analysis with progress bars showing assignment, quiz, exam, and final grade averages
+GPA Calculation System - Automatic GPA computation on 4.0 scale with weighted grade conversion and academic standing
+At-Risk Student Detection - Automated identification of students needing intervention based on predicted grades and low grade patterns
+Consistency Factor Calculation - Performance stability analysis based on grade standard deviation over time
+Trend Factor Analysis - Grade trajectory assessment to identify improvement or decline patterns
+Real-Time Analytics - Dashboard statistics and visual insights for students, teachers, and administrators
+Session-Based Authentication - Secure login system with role-based access control and password hashing
+Email Notification System - SMTP integration for account approvals, alerts, and system communications
+Database Schema Updates - Automatic migration system for schema changes and data integrity
+Demo Data Import - Automatic population of sample data for testing and demonstration purposes
+
+
+
+
+PROGRAM FLOW / ALGORITHM
+1. User accesses system via web browser
+2. System checks for active session
+3. If no session, redirect to login page
+4. User enters credentials and submits login form
+5. System validates credentials against database
+6. If valid and account approved, create session and redirect to dashboard
+7. Dashboard displays role-specific statistics and quick actions
+8. User selects action from menu:
+   a. Student Actions:
+      - View Profile → Display personal information with edit option
+      - Use Prediction Tool → Input factors → Calculate predicted grade → Display result
+      - View Analytics → Show attendance heatmap → Display subject breakdown → Show GPA and status
+      - View Reports → List generated reports → Display report details
+   b. Teacher Actions:
+      - Encode Grades → Select student → Enter subject grades → Save to database
+      - Record Attendance → Select student → Enter date and status → Save to database
+      - Generate Reports → Select student → Generate summary → Save report
+   c. Admin Actions:
+      - Manage Users → View pending accounts → Approve/reject registrations
+      - View Students → List all students → View/edit student details
+      - View Teachers → List all teachers → View/edit teacher details
+      - View Analytics → Display system-wide statistics and charts
+9. System processes request and updates database as needed
+10. Display results or redirect to appropriate page
+11. User can logout or continue using system
+12. Session expires on logout or timeout
+
+Sample Output
+-User accesses the login page and enters credentials
+[Login Page Display]
+- System title: "AI Student Predictor"
+- Username input field with placeholder
+- Password input field with placeholder
+- Login button
+- Error message display for invalid credentials
+- Pending approval message for unverified accounts
+- Links to registration page for new users
+- Responsive design with sidebar navigation
+
+-After successful login, user is redirected to role-specific dashboard
+[Student Dashboard Display]
+- Welcome message with student's full name
+- Role indicator showing "student"
+- Statistics cards displaying:
+  * Predicted grade percentage (e.g., "89%")
+  * Attendance percentage (e.g., "90%")
+  * Recorded grades count
+  * Notifications count
+- Quick action cards:
+  * "My Profile" - Update personal information
+  * "Prediction" - Try grade predictor tool
+  * "Analytics" - View academic analytics
+  * "Reports" - View generated reports
+- Sidebar navigation with role-specific menu items
+- User profile chip in top bar
+
+[Teacher Dashboard Display]
+- Welcome message with teacher's full name
+- Role indicator showing "teacher"
+- Statistics cards displaying:
+  * Students tracked count
+  * Grades encoded count
+  * Attendance records count
+- Quick action cards:
+  * "Grade Entry" - Encode student grades
+  * "Attendance Tracking" - Record student attendance
+  * "Reporting" - Generate student reports
+- Sidebar navigation with teacher-specific menu items
+
+[Admin Dashboard Display]
+- Welcome message with administrator's full name
+- Role indicator showing "admin"
+- Statistics cards displaying:
+  * Total students count
+  * Total teachers count
+  * Total reports count
+  * Total notifications count
+- Quick action cards:
+  * "Admin tools" - Manage system
+  * "Student roster" - View all students
+  * "Teacher roster" - View all teachers
+- Sidebar navigation with admin-specific menu items
+
+-Student navigates to the Analytics page
+[Analytics Page Display]
+- Page title: "Academic Analytics"
+- Subtitle: "Detailed performance insights and attendance patterns"
+- Attendance Heatmap section:
+  * Section title: "Attendance Heatmap (Last 12 Weeks)"
+  * Legend showing status colors:
+    - Green: Present
+    - Orange: Late
+    - Red: Absent
+    - Blue: Excused
+  * 12-week grid display with day headers (Sun, Mon, Tue, Wed, Thu, Fri, Sat)
+  * Color-coded cells representing attendance status
+  * Statistics showing:
+    - Overall attendance percentage
+    - Total attendance records count
+- Subject Performance Breakdown section:
+  * Section title: "Subject Performance Breakdown"
+  * Subject cards for each enrolled subject showing:
+    - Subject name
+    - Average assignment score with progress bar
+    - Average quiz score with progress bar
+    - Average exam score with progress bar
+    - Average final grade with highlighted progress bar
+    - Number of grades recorded
+- Performance Summary section:
+  * GPA display card showing:
+    - Overall GPA (e.g., "3.25 / 4.0")
+  * Academic status card showing:
+    - Status badge: "On Track" or "At Risk"
+    - Status description and recommendations
+
+-Student uses the Prediction tool
+[Prediction Tool Display]
+- Page title: "Grade Prediction"
+- Input form with fields:
+  * Attendance percentage input
+  * Study hours per week input
+  * Assignment score input
+  * Quiz score input
+- Predict button
+- Result display showing:
+  * Predicted final grade percentage
+  * Performance assessment message
+  * Recommendations for improvement
+- Current student statistics display
+- Link to return to dashboard
+
+-Teacher encodes grades for a student
+[Grade Encoding Display]
+- Page title: "Encode Grades"
+- Student selection dropdown
+- Subject input field
+- Score input fields:
+  * Assignment score
+  * Quiz score
+  * Exam score
+  * Final grade (auto-calculated or manual)
+- Save button
+- Success message after saving
+- List of recently encoded grades
+- Link to return to dashboard
+
+-Teacher records student attendance
+[Attendance Recording Display]
+- Page title: "Attendance Tracking"
+- Student selection dropdown
+- Date picker for attendance date
+- Status dropdown (Present, Late, Absent, Excused)
+- Remarks text field (optional)
+- Save button
+- Success message after saving
+- List of recent attendance records
+- Link to return to dashboard
+
+-Admin approves pending user accounts
+[Account Approval Display]
+- Page title: "Pending Accounts"
+- Table showing pending registrations:
+  * Username
+  * Full name
+  * Email
+  * Role
+  * Registration date
+  * Approve button
+  * Reject button
+- Success message after approval/rejection
+- Email notification confirmation
+- Link to return to admin dashboard
+
+-User logs out of the system
+[Logout Display]
+- Session termination message
+- Redirect to login page
+- Option to login again
