@@ -14,7 +14,7 @@ if (!defined('SMTP_HOST')) {
     define('SMTP_USERNAME', 'leonardolllmacalinaoisap1@gmail.com');
     define('SMTP_PASSWORD', 'ebdp xlit dlqr vcks');
     define('SMTP_FROM_EMAIL', SMTP_USERNAME);
-    define('SMTP_FROM_NAME', 'AI Student Predictor');
+    define('SMTP_FROM_NAME', 'AI-powered student academic performance predictor');
 }
 
 function get_db_connection()

@@ -1,4 +1,4 @@
-AI STUDENT ACADEMIC PREDICTOR
+AI-POWERED STUDENT ACADEMIC PERFORMANCE PREDICTOR
 WITH ENHANCED ANALYTICS
 
 A System Documentation
@@ -23,7 +23,7 @@ Date Submitted:
 
 INTRODUCTION
 What is the purpose of the system?
-The AI Student Academic Predictor is a web-based academic management system designed to predict student performance using advanced algorithms and provide comprehensive analytics for students, teachers, and administrators. Unlike traditional grade tracking systems that simply record grades, this system uses enhanced prediction formulas with multiple weighted factors including attendance, study hours, assignment completion, quiz performance, consistency factors, and trend analysis to accurately forecast final grades.
+The AI-powered student academic performance predictor is a web-based academic management system designed to predict student performance using advanced algorithms and provide comprehensive analytics for students, teachers, and administrators. Unlike traditional grade tracking systems that simply record grades, this system uses enhanced prediction formulas with multiple weighted factors including attendance, study hours, assignment completion, quiz performance, consistency factors, and trend analysis to accurately forecast final grades.
 
 Who will use it?
 This system is intended for educational institutions including universities, colleges, and schools. It serves three primary user groups: students who want to track their academic progress and predictions, teachers who need to encode grades and monitor student performance, and administrators who require system-wide analytics and user management capabilities. It is particularly useful for institutions that want to implement early intervention strategies for at-risk students.
@@ -50,7 +50,7 @@ OBJECTIVES
 •	To demonstrate how web applications can support academic analytics and prediction
 
 SYSTEM DESCRIPTION
-The AI Student Academic Predictor is a PHP-based web application that combines traditional academic management with intelligent prediction algorithms and data visualization. The system consists of multiple PHP modules working together:
+The AI-powered student academic performance predictor is a PHP-based web application that combines traditional academic management with intelligent prediction algorithms and data visualization. The system consists of multiple PHP modules working together:
 1.	includes/db.php - Database connection and schema management functions
 2.	includes/functions.php - Core system functions for predictions, GPA calculation, and analytics
 3.	includes/header.php - Navigation and layout components with role-based menus

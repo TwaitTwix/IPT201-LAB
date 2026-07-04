@@ -84,9 +84,12 @@ function predict_grade($attendance, $studyHours, $assignments, $quizScore, $cons
     $assignmentWeight = 0.25;     // Homework completion and quality
     $quizWeight = 0.3;            // Quiz performance (best indicator of understanding)
     
-    $baseScore = ($attendance * $attendanceWeight) + 
-                 ($studyHours * 2.0 * $studyWeight) +  // Study hours have exponential effect (capped at 20hrs)
-                 ($assignments * $assignmentWeight) + 
+    // Cap study hours at 20 hours/week for diminishing returns
+    $cappedStudyHours = min($studyHours, 20);
+    
+    $baseScore = ($attendance * $attendanceWeight) +
+                 ($cappedStudyHours * 2.0 * $studyWeight) +  // Study hours have exponential effect (capped at 20hrs)
+                 ($assignments * $assignmentWeight) +
                  ($quizScore * $quizWeight);
     
     // Apply consistency factor (how stable the student is)
@@ -95,11 +98,7 @@ function predict_grade($attendance, $studyHours, $assignments, $quizScore, $cons
     // Apply trend factor (improvement trajectory)
     $baseScore = $baseScore * (0.98 + ($trend * 0.02));
     
-    // Cap study hours impact at 20 hours/week (diminishing returns)
-    $cappedStudyHours = min($studyHours, 20);
-    $studyBonus = (max(0, $studyHours - 20) * 0.01);
-    
-    $finalScore = $baseScore + $studyBonus;
+    $finalScore = $baseScore;
     
     return (int) round(max(0, min(100, $finalScore)));
 }
@@ -364,6 +363,32 @@ function approve_user($userId, $approvedBy = null) {
         create_notification($userId, 'Account approved', "Hello {$user['full_name']},\n\nYour account has been approved by an administrator and is now active.\n\nThank you,\nAI Student Predictor Team");
     }
 
+    return true;
+}
+
+function reject_user($userId) {
+    $connection = get_db_connection();
+    
+    // Get user info before deletion for logging
+    $stmt = $connection->prepare('SELECT username, full_name, email FROM users WHERE id = ? LIMIT 1');
+    $stmt->bind_param('i', $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+    $stmt->close();
+    
+    if (!$user) {
+        return false;
+    }
+    
+    // Delete user (cascade will handle related records)
+    $delete = $connection->prepare('DELETE FROM users WHERE id = ?');
+    $delete->bind_param('i', $userId);
+    $delete->execute();
+    $delete->close();
+    
+    log_info('User account rejected', ['user_id' => $userId, 'username' => $user['username'], 'email' => $user['email']]);
+    
     return true;
 }
 

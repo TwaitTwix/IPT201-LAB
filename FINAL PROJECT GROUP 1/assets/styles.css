@@ -51,6 +51,13 @@ textarea {
     display: flex;
     align-items: center;
     gap: 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 220ms ease;
+}
+
+.sidebar-header:hover {
+    transform: translateX(2px);
 }
 
 .brandmark {
@@ -62,6 +69,14 @@ textarea {
     background: #0078D4;
     color: white;
     font-weight: 700;
+    box-shadow: 0 14px 24px rgba(0, 120, 212, 0.18);
+}
+
+.brandmark-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+    object-fit: contain;
     box-shadow: 0 14px 24px rgba(0, 120, 212, 0.18);
 }
 
@@ -298,6 +313,16 @@ textarea {
 form {
     display: grid;
     gap: 18px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.form-actions form {
+    display: inline;
 }
 
 label {

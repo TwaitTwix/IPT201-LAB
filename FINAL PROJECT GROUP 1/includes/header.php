@@ -5,7 +5,7 @@ start_session();
 initialize_database();
 
 $user = $_SESSION['user'] ?? null;
-$pageTitle = $pageTitle ?? 'AI Student Academic Predictor';
+$pageTitle = $pageTitle ?? 'AI-powered student academic performance predictor';
 
 $currentDir = trim(dirname($_SERVER['PHP_SELF']), '/');
 $assetPrefix = '';
@@ -24,13 +24,13 @@ if ($currentDir !== '') {
 <body>
 <div class="app-shell">
     <aside class="sidebar" aria-label="Primary navigation">
-        <div class="sidebar-header">
-            <div class="brandmark">AI</div>
+        <a href="<?php echo $assetPrefix; ?>index.php" class="sidebar-header">
+            <img src="<?php echo $assetPrefix; ?>assets/logo.PNG" alt="AI-powered student academic performance predictor Logo" class="brandmark-logo">
             <div class="brand-text">
-                <span>AI Student Predictor</span>
+                <span>AI-powered student academic performance predictor</span>
                 <small>Fluent academic insights</small>
             </div>
-        </div>
+        </a>
         <nav class="sidebar-nav" aria-label="Main navigation">
             <a class="sidebar-link" href="<?php echo $assetPrefix; ?>dashboard.php">Dashboard</a>
             <?php if ($user && $user['role'] === 'admin'): ?>
@@ -48,7 +48,7 @@ if ($currentDir !== '') {
                 <a class="sidebar-link" href="<?php echo $assetPrefix; ?>student/reports.php">Reports</a>
             <?php endif; ?>
             <?php if ($user): ?>
-                <a class="sidebar-link sidebar-link--logout" href="<?php echo $assetPrefix; ?>logout.php">Sign Out</a>
+                <a class="sidebar-link sidebar-link--logout" href="<?php echo $assetPrefix; ?>logout-confirm.php">Sign Out</a>
             <?php else: ?>
                 <a class="sidebar-link" href="<?php echo $assetPrefix; ?>login.php">Login</a>
                 <a class="sidebar-link" href="<?php echo $assetPrefix; ?>register.php">Register</a>
