@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2026 at 04:08 PM
+-- Generation Time: Jul 03, 2026 at 04:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,26 +42,6 @@ CREATE TABLE `attendance_records` (
 INSERT INTO `attendance_records` (`id`, `student_id`, `record_date`, `status`, `remarks`) VALUES
 (2, 21, '2026-07-03', 'Late', ''),
 (3, 21, '2026-07-04', 'Absent', 'No Excuse Letter');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `departments`
---
-
-CREATE TABLE `departments` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `departments`
---
-
-INSERT INTO `departments` (`id`, `name`, `description`, `created_at`) VALUES
-(1, 'CITE', 'College of Information Technology and Engineering', '2026-07-05 13:10:07');
 
 -- --------------------------------------------------------
 
@@ -113,10 +93,10 @@ INSERT INTO `notifications` (`id`, `user_id`, `subject`, `message`, `status`, `c
 (1, 2, 'Report generated', 'Student Ana Santos has attendance 92%, predicted grade 107%, and final grade 90%.', 'sent', '2026-07-02 17:05:41'),
 (22, 2, 'Grade encoded', 'You stored a new grade for Ian Torres', 'sent', '2026-07-03 07:20:19'),
 (24, 2, 'Report generated', 'Student Ian Torres has attendance 78%, predicted grade 49%, and final grade 28%.', 'sent', '2026-07-03 07:20:45'),
-(26, 32, 'Account approved', 'Hello leonardo macalinao iii,\n\nYour account has been approved by an administrator and is now active.\n\nThank you,\nAI Student Predictor Team', 'sent', '2026-07-03 07:53:41'),
+(26, 32, 'Account approved', 'Hello leonardo macalinao iii,\n\nYour account has been approved by an administrator and is now active.\n\nThank you,\nAI-powered student academic performance predictor Team', 'sent', '2026-07-03 07:53:41'),
 (27, 2, 'Report generated', 'Student leonardo macalinao iii has attendance 80%, predicted grade 70%, and final grade 0%.', 'sent', '2026-07-03 08:20:28'),
 (28, 32, 'Report generated', 'Student leonardo macalinao iii has attendance 80%, predicted grade 70%, and final grade 0%.', 'sent', '2026-07-03 08:20:31'),
-(29, 33, 'Account approved', 'Hello Lorelie M. Macalinao,\n\nYour account has been approved by an administrator and is now active.\n\nThank you,\nAI Student Predictor Team', 'sent', '2026-07-03 08:23:17'),
+(29, 33, 'Account approved', 'Hello Lorelie M. Macalinao,\n\nYour account has been approved by an administrator and is now active.\n\nThank you,\nAI-powered student academic performance predictor Team', 'sent', '2026-07-03 08:23:17'),
 (30, 33, 'Grade encoded', 'You stored a new grade for leonardo macalinao iii', 'sent', '2026-07-03 08:25:17'),
 (31, 32, 'New grade posted', 'A new grade has been recorded for you.', 'sent', '2026-07-03 08:25:20'),
 (32, 33, 'Report generated', 'Student leonardo macalinao iii has attendance 80%, predicted grade 49%, and final grade 26%.', 'sent', '2026-07-03 08:26:12'),
@@ -126,12 +106,7 @@ INSERT INTO `notifications` (`id`, `user_id`, `subject`, `message`, `status`, `c
 (36, 33, 'Grade encoded', 'You stored a new grade for leonardo macalinao iii', 'sent', '2026-07-03 09:53:48'),
 (37, 32, 'New grade posted', 'A new grade has been recorded for you.', 'sent', '2026-07-03 09:53:51'),
 (38, 33, 'Report generated', 'Student leonardo macalinao iii has attendance 100%, predicted grade 50%, and final grade 66%.', 'sent', '2026-07-03 09:54:48'),
-(39, 32, 'Report generated', 'Student leonardo macalinao iii has attendance 100%, predicted grade 50%, and final grade 66%.', 'sent', '2026-07-03 09:54:51'),
-(40, 35, 'Account approved', 'Hello Cj Rubio,\n\nYour account has been approved by an administrator and is now active.\n\nThank you,\nAI Student Predictor Team', 'sent', '2026-07-05 11:18:22'),
-(41, 35, 'Report generated', 'Student Leo Mac has attendance 0%, predicted grade 0%, and final grade 0%.', 'sent', '2026-07-05 11:21:28'),
-(43, 36, 'Account approved', 'Hello Paul Raven Cabildo,\n\nYour account has been approved by an administrator and is now active.\n\nThank you,\nAI Student Predictor Team', 'sent', '2026-07-05 11:36:40'),
-(44, 33, 'Report generated', 'Student Paul Raven Cabildo has attendance 27%, predicted grade 33%, and final grade 0%.', 'sent', '2026-07-05 11:42:58'),
-(45, 36, 'Report generated', 'Student Paul Raven Cabildo has attendance 27%, predicted grade 33%, and final grade 0%.', 'sent', '2026-07-05 11:43:01');
+(39, 32, 'Report generated', 'Student leonardo macalinao iii has attendance 100%, predicted grade 50%, and final grade 66%.', 'sent', '2026-07-03 09:54:51');
 
 -- --------------------------------------------------------
 
@@ -155,8 +130,7 @@ INSERT INTO `reports` (`id`, `student_id`, `generated_by`, `summary`, `created_a
 (3, 21, 2, 'Student leonardo macalinao iii has attendance 80%, predicted grade 70%, and final grade 0%.', '2026-07-03 08:20:23'),
 (4, 21, 33, 'Student leonardo macalinao iii has attendance 80%, predicted grade 49%, and final grade 26%.', '2026-07-03 08:26:08'),
 (5, 21, 33, 'Student leonardo macalinao iii has attendance 80%, predicted grade 49%, and final grade 26%.', '2026-07-03 08:26:19'),
-(6, 21, 33, 'Student leonardo macalinao iii has attendance 100%, predicted grade 50%, and final grade 66%.', '2026-07-03 09:54:45'),
-(8, 23, 33, 'Student Paul Raven Cabildo has attendance 27%, predicted grade 33%, and final grade 0%.', '2026-07-05 11:42:54');
+(6, 21, 33, 'Student leonardo macalinao iii has attendance 100%, predicted grade 50%, and final grade 66%.', '2026-07-03 09:54:45');
 
 -- --------------------------------------------------------
 
@@ -187,8 +161,7 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`id`, `user_id`, `student_id`, `program`, `phone`, `guardian_name`, `attendance`, `study_hours`, `assignments`, `quiz_score`, `predicted_grade`, `final_grade`, `status`, `created_at`) VALUES
 (1, 3, 'STU000', 'Computer Science', '09170000002', 'Student Guardian', 2, 4, 3, 6, 13, 90, '0', '2026-07-02 15:42:00'),
-(21, 32, 'STU032', 'Information Technology', '09770337918', 'Leonardo G. Macalinao Jr.', 100, 10, 50, 50, 50, 66, '0', '2026-07-03 07:53:22'),
-(23, 36, 'STU036', 'General Studies', '', '', 27, 20, 34, 31, 33, 0, '0', '2026-07-05 11:36:10');
+(21, 32, 'STU032', 'Information Technology', '09770337918', 'Leonardo G. Macalinao Jr.', 100, 10, 50, 50, 50, 66, '0', '2026-07-03 07:53:22');
 
 -- --------------------------------------------------------
 
@@ -213,8 +186,7 @@ INSERT INTO `subjects` (`id`, `subject_code`, `name`, `created_at`) VALUES
 (3, 'PHYS101', 'Physics', '2026-07-03 07:46:49'),
 (4, 'CS101', 'Computer Science', '2026-07-03 07:46:49'),
 (5, 'ENG101', 'English Composition', '2026-07-03 07:46:49'),
-(6, 'STAT101', 'Statistics', '2026-07-03 07:46:49'),
-(7, '', 'testing', '2026-07-05 13:09:20');
+(6, 'STAT101', 'Statistics', '2026-07-03 07:46:49');
 
 -- --------------------------------------------------------
 
@@ -225,7 +197,6 @@ INSERT INTO `subjects` (`id`, `subject_code`, `name`, `created_at`) VALUES
 CREATE TABLE `teachers` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `department_id` int(11) DEFAULT NULL,
   `department` varchar(100) DEFAULT 'General',
   `phone` varchar(20) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -234,37 +205,11 @@ CREATE TABLE `teachers` (
 -- Dumping data for table `teachers`
 --
 
-INSERT INTO `teachers` (`id`, `user_id`, `department_id`, `department`, `phone`) VALUES
-(1, 2, NULL, 'CITE', '09170000001'),
-(6, 29, NULL, 'CITE', '09170001001'),
-(7, 30, NULL, 'CITE', '09170001002'),
-(8, 33, NULL, 'CITE', '000'),
-(9, 35, NULL, 'CITE', '000');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `teacher_subjects`
---
-
-CREATE TABLE `teacher_subjects` (
-  `id` int(11) NOT NULL,
-  `teacher_id` int(11) NOT NULL,
-  `subject_id` int(11) NOT NULL,
-  `assigned_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `teacher_subjects`
---
-
-INSERT INTO `teacher_subjects` (`id`, `teacher_id`, `subject_id`, `assigned_at`) VALUES
-(1, 9, 1, '2026-07-05 13:08:21'),
-(2, 7, 2, '2026-07-05 13:08:32'),
-(3, 8, 5, '2026-07-05 13:08:40'),
-(4, 6, 3, '2026-07-05 13:08:44'),
-(5, 1, 6, '2026-07-05 13:08:53'),
-(6, 9, 4, '2026-07-05 13:08:57');
+INSERT INTO `teachers` (`id`, `user_id`, `department`, `phone`) VALUES
+(1, 2, 'Mathematics', '09170000001'),
+(6, 29, 'Physics', '09170001001'),
+(7, 30, 'Mathematics', '09170001002'),
+(8, 33, 'General', '000');
 
 -- --------------------------------------------------------
 
@@ -297,9 +242,7 @@ INSERT INTO `users` (`id`, `username`, `password_hash`, `role`, `full_name`, `em
 (30, 'advisor', '$2y$10$0OZ4PORrX.pgPSJ8MYMEh.Vt//3B9WRAZGiyiSgH232M5ccd3oaqm', 'teacher', 'Advisor Teacher', 'advisor.teacher@school.edu', '2026-07-03 07:48:35', 1, NULL, NULL),
 (31, 'olivia.james', '$2y$10$vW1FbZCW7BwDq3Uz5DMQXuDm6SfBvIX0lwZKVnR0jU3x8E/zUl0qy', '', 'Olivia James', 'olivia.james@student.edu', '2026-07-03 07:48:36', 1, NULL, NULL),
 (32, 'lmacalinao', '$2y$10$cNASgopyVfOUBuS4QnVxluoJiu8Vc.rAbC3tP/0MmmTiPzTLvpINS', 'student', 'leonardo macalinao iii', 'leonardolllmacalinaoisap@gmail.com', '2026-07-03 07:53:22', 1, NULL, NULL),
-(33, 'lomacalinao', '$2y$10$PQAsl5H8jl5t/rhbpy9wGOtwvqmcg3dRGhe2.XMTusX1EP8rV0Kf.', 'teacher', 'Lorelie M. Macalinao', 'twaittwix28@gmail.com', '2026-07-03 08:22:55', 1, NULL, NULL),
-(35, 'cjrubio', '$2y$10$V.ywRz66ZaRRfgHIE2XiOeM2pZrm/bZlWMPzb.MgCTSC09a7nn63a', 'teacher', 'Cj Rubio', 'rubiocj97@gmail.com', '2026-07-05 11:16:32', 1, NULL, NULL),
-(36, 'prcabildo', '$2y$10$IUBNmuCYRFCc82UyzERUCuZp6vSeJWJ6qeP4MD8/7VaqrdBah1VAW', 'student', 'Paul Raven Cabildo', 'paulravenpascua@gmail.com', '2026-07-05 11:36:10', 1, NULL, NULL);
+(33, 'lomacalinao', '$2y$10$PQAsl5H8jl5t/rhbpy9wGOtwvqmcg3dRGhe2.XMTusX1EP8rV0Kf.', 'teacher', 'Lorelie M. Macalinao', 'twaittwix28@gmail.com', '2026-07-03 08:22:55', 1, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -311,13 +254,6 @@ INSERT INTO `users` (`id`, `username`, `password_hash`, `role`, `full_name`, `em
 ALTER TABLE `attendance_records`
   ADD PRIMARY KEY (`id`),
   ADD KEY `student_id` (`student_id`);
-
---
--- Indexes for table `departments`
---
-ALTER TABLE `departments`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `grades`
@@ -363,17 +299,7 @@ ALTER TABLE `subjects`
 --
 ALTER TABLE `teachers`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_id` (`user_id`),
-  ADD KEY `department_id` (`department_id`);
-
---
--- Indexes for table `teacher_subjects`
---
-ALTER TABLE `teacher_subjects`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `teacher_subject` (`teacher_id`,`subject_id`),
-  ADD KEY `teacher_id` (`teacher_id`),
-  ADD KEY `subject_id` (`subject_id`);
+  ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `users`
@@ -394,12 +320,6 @@ ALTER TABLE `attendance_records`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `departments`
---
-ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
@@ -409,43 +329,37 @@ ALTER TABLE `grades`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `teacher_subjects`
---
-ALTER TABLE `teacher_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Constraints for dumped tables
@@ -488,15 +402,7 @@ ALTER TABLE `students`
 -- Constraints for table `teachers`
 --
 ALTER TABLE `teachers`
-  ADD CONSTRAINT `fk_teachers_department` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `teachers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `teacher_subjects`
---
-ALTER TABLE `teacher_subjects`
-  ADD CONSTRAINT `fk_teacher_subjects_subject` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_teacher_subjects_teacher` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

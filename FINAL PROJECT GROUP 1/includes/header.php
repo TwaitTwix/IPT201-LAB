@@ -37,6 +37,9 @@ if ($currentDir !== '') {
                 <a class="sidebar-link" href="<?php echo $assetPrefix; ?>admin/index.php">Admin Console</a>
                 <a class="sidebar-link" href="<?php echo $assetPrefix; ?>admin/students.php">Student Roster</a>
                 <a class="sidebar-link" href="<?php echo $assetPrefix; ?>admin/teachers.php">Teacher Roster</a>
+                <a class="sidebar-link" href="<?php echo $assetPrefix; ?>admin/departments.php">Departments</a>
+                <a class="sidebar-link" href="<?php echo $assetPrefix; ?>admin/subjects.php">Subjects</a>
+                <a class="sidebar-link" href="<?php echo $assetPrefix; ?>admin/teacher-subjects.php">Teacher-Subject Assignments</a>
             <?php elseif ($user && $user['role'] === 'teacher'): ?>
                 <a class="sidebar-link" href="<?php echo $assetPrefix; ?>teacher/encode-grades.php">Encode Grades</a>
                 <a class="sidebar-link" href="<?php echo $assetPrefix; ?>teacher/attendance.php">Attendance</a>

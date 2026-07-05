@@ -45,3 +45,10 @@
 [2026-07-03 11:54:48] INFO: SMTP email sent | {"to":"twaittwix28@gmail.com","subject":"Report generated"}
 [2026-07-03 11:54:51] INFO: SMTP email sent | {"to":"leonardolllmacalinaoisap@gmail.com","subject":"Report generated"}
 [2026-07-03 11:54:54] INFO: SMTP email sent | {"to":"leonardolllmacalinaoisap@gmail.com","subject":"Your Academic Report"}
+[2026-07-05 13:18:22] INFO: SMTP email sent | {"to":"rubiocj97@gmail.com","subject":"Account approved"}
+[2026-07-05 13:21:28] INFO: SMTP email sent | {"to":"rubiocj97@gmail.com","subject":"Report generated"}
+[2026-07-05 13:27:57] INFO: User account rejected | {"user_id":34,"username":"leomac","email":"leonardolllmacalinao@gmail.com"}
+[2026-07-05 13:36:40] INFO: SMTP email sent | {"to":"paulravenpascua@gmail.com","subject":"Account approved"}
+[2026-07-05 13:42:58] INFO: SMTP email sent | {"to":"twaittwix28@gmail.com","subject":"Report generated"}
+[2026-07-05 13:43:01] INFO: SMTP email sent | {"to":"paulravenpascua@gmail.com","subject":"Report generated"}
+[2026-07-05 13:43:03] INFO: SMTP email sent | {"to":"paulravenpascua@gmail.com","subject":"Your Academic Report"}

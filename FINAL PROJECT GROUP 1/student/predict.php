@@ -12,11 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $assignments = (int) ($_POST['assignments'] ?? 0);
     $quizScore = (int) ($_POST['quiz_score'] ?? 0);
     $result = predict_grade($attendance, $studyHours, $assignments, $quizScore);
-
-    $update = $connection->prepare('UPDATE students SET attendance = ?, study_hours = ?, assignments = ?, quiz_score = ?, predicted_grade = ? WHERE user_id = ?');
-    $update->bind_param('iiiiii', $attendance, $studyHours, $assignments, $quizScore, $result, $user['id']);
-    $update->execute();
-    $update->close();
 }
 ?>
 <div class="card">

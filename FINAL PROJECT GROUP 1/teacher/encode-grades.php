@@ -66,7 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = 'Grade saved successfully.';
 }
 
-$grades = $connection->query('SELECT g.*, COALESCE(sub.name, g.subject) AS subject_name, u.full_name FROM grades g LEFT JOIN subjects sub ON sub.id = g.subject_id JOIN students s ON s.id = g.student_id JOIN users u ON u.id = s.user_id ORDER BY g.encoded_at DESC LIMIT 10');
+$grades = $connection->prepare('SELECT g.*, COALESCE(sub.name, g.subject) AS subject_name, u.full_name FROM grades g LEFT JOIN subjects sub ON sub.id = g.subject_id JOIN students s ON s.id = g.student_id JOIN users u ON u.id = s.user_id WHERE g.encoded_by = ? ORDER BY g.encoded_at DESC LIMIT 10');
+$grades->bind_param('i', $user['id']);
+$grades->execute();
+$grades = $grades->get_result();
 ?>
 <div class="card">
     <h1>Encode grades</h1>

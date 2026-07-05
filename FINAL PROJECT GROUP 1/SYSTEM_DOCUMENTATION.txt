@@ -53,12 +53,14 @@ SYSTEM DESCRIPTION
 The AI-powered student academic performance predictor is a PHP-based web application that combines traditional academic management with intelligent prediction algorithms and data visualization. The system consists of multiple PHP modules working together:
 1.	includes/db.php - Database connection and schema management functions
 2.	includes/functions.php - Core system functions for predictions, GPA calculation, and analytics
-3.	includes/header.php - Navigation and layout components with role-based menus
+3.	includes/header.php - Navigation and layout components with role-based menus and logo integration
 4.	includes/footer.php - Page footer components
 5.	dashboard.php - Role-based dashboard with statistics and quick actions
 6.	student/ - Student-specific pages (profile, predict, analytics, reports)
 7.	teacher/ - Teacher-specific pages (encode grades, attendance, reports)
-8.	admin/ - Administrator-specific pages (user management, analytics)
+8.	admin/ - Administrator-specific pages (user management, student roster, teacher roster, departments, subjects, teacher-subject assignments)
+9.	logout-confirm.php - Logout confirmation dialog to prevent accidental logouts
+10.	database/schema_update.sql - Database migration script for new features
 The system uses a weighted scoring system combining multiple factors:
 •	Attendance (20%) - Tracks student presence and engagement
 •	Study Hours (25%) - Measures time dedicated to academic work
@@ -80,8 +82,15 @@ Profile Management		Students can update personal information and contact details
 Grade Encoding		Teachers can encode grades by subject with assignment, quiz, and exam scores
 Attendance Recording		Teachers can record daily attendance with status and remarks
 Report Generation		Comprehensive academic reports for students and system-wide analytics
-Email Notifications		Automated emails for account approvals and system alerts
-Account Approval		Admin approval workflow for new user registrations
+Email Notifications		Automated emails for account approvals, alerts, and account updates
+Account Approval		Admin approval workflow for new user registrations with reject option
+Student Management		Admin can view, edit, and remove student records with email notifications
+Teacher Management		Admin can view, edit, and remove teacher records with email notifications
+Department Management	Admin can add, edit, and remove academic departments
+Subject Management		Admin can add, edit, and remove subjects with subject codes
+Teacher-Subject Assignment	Admin can assign subjects to teachers with email notifications
+Logout Confirmation		Confirmation dialog before logging out to prevent accidental logouts
+Logo Integration		System logo displayed in header with navigation to homepage
 
 Advanced Features
 Enhanced Prediction Formula - Multi-factor algorithm with consistency and trend analysis for accurate grade forecasting
@@ -93,9 +102,15 @@ Consistency Factor Calculation - Performance stability analysis based on grade s
 Trend Factor Analysis - Grade trajectory assessment to identify improvement or decline patterns
 Real-Time Analytics - Dashboard statistics and visual insights for students, teachers, and administrators
 Session-Based Authentication - Secure login system with role-based access control and password hashing
-Email Notification System - SMTP integration for account approvals, alerts, and system communications
-Database Schema Updates - Automatic migration system for schema changes and data integrity
-Demo Data Import - Automatic population of sample data for testing and demonstration purposes
+Email Notification System - SMTP integration for account approvals, alerts, system communications, and account updates
+Database Schema Updates - Automatic migration system for schema changes and data integrity including departments and teacher-subject relationships
+Department Management - Centralized department administration with add, edit, and delete capabilities
+Subject Management - Comprehensive subject administration with subject codes and descriptions
+Teacher-Subject Assignment - Flexible assignment system allowing teachers to handle multiple subjects
+Account Update Notifications - Email alerts sent to users when administrators modify their account details
+Logout Confirmation - Safety feature preventing accidental logout with confirmation dialog
+Logo Integration - Brand identity through logo display in header with homepage navigation
+Prediction Isolation - Grade predictor operates independently without saving predictions as actual grades
 
 
 
@@ -119,9 +134,12 @@ PROGRAM FLOW / ALGORITHM
       - Record Attendance → Select student → Enter date and status → Save to database
       - Generate Reports → Select student → Generate summary → Save report
    c. Admin Actions:
-      - Manage Users → View pending accounts → Approve/reject registrations
-      - View Students → List all students → View/edit student details
-      - View Teachers → List all teachers → View/edit teacher details
+      - Manage Users → View pending accounts → Approve/reject registrations with email notifications
+      - View Students → List all students → Edit student details → Remove students with email notifications
+      - View Teachers → List all teachers → Edit teacher details → Remove teachers with email notifications
+      - Manage Departments → Add/edit/delete departments with descriptions
+      - Manage Subjects → Add/edit/delete subjects with subject codes
+      - Assign Subjects → Assign subjects to teachers → Remove assignments with email notifications
       - View Analytics → Display system-wide statistics and charts
 9. System processes request and updates database as needed
 10. Display results or redirect to appropriate page
@@ -261,7 +279,7 @@ Sample Output
 
 -Admin approves pending user accounts
 [Account Approval Display]
-- Page title: "Pending Accounts"
+- Page title: "Pending Account Approvals"
 - Table showing pending registrations:
   * Username
   * Full name
@@ -272,6 +290,88 @@ Sample Output
   * Reject button
 - Success message after approval/rejection
 - Email notification confirmation
+- Link to return to admin dashboard
+
+-Admin manages student records
+[Student Roster Display]
+- Page title: "Student Roster"
+- Table showing all students:
+  * Student ID
+  * Full name
+  * Program
+  * Attendance percentage
+  * Predicted grade
+  * Final grade
+  * Edit button
+  * Remove button
+- Edit modal with fields:
+  * Student ID
+  * Program
+  * Phone
+  * Guardian name
+- Success message after update with email notification confirmation
+- Link to return to admin dashboard
+
+-Admin manages teacher records
+[Teacher Roster Display]
+- Page title: "Teacher Roster"
+- Table showing all teachers:
+  * Full name
+  * Department (dropdown selection)
+  * Email
+  * Phone
+  * Edit button
+  * Remove button
+- Edit modal with fields:
+  * Department dropdown (from existing departments)
+  * Phone
+- Success message after update with email notification confirmation
+- Link to return to admin dashboard
+
+-Admin manages departments
+[Departments Display]
+- Page title: "Departments"
+- Add new department form:
+  * Department name
+  * Description
+  * Add button
+- Table showing all departments:
+  * Department name
+  * Description
+  * Edit button
+  * Delete button
+- Edit modal with department details
+- Success message after add/edit/delete
+- Link to return to admin dashboard
+
+-Admin manages subjects
+[Subjects Display]
+- Page title: "Subjects"
+- Add new subject form:
+  * Subject code (optional)
+  * Subject name
+  * Add button
+- Table showing all subjects:
+  * Subject code
+  * Subject name
+  * Edit button
+  * Delete button
+- Edit modal with subject details
+- Success message after add/edit/delete
+- Link to return to admin dashboard
+
+-Admin assigns subjects to teachers
+[Teacher-Subject Assignments Display]
+- Page title: "Teacher Subject Assignments"
+- Assign subject form:
+  * Teacher dropdown
+  * Subject dropdown
+  * Assign button
+- Table showing current assignments:
+  * Teacher name
+  * Subject name
+  * Remove button
+- Success message after assignment/removal with email notification confirmation
 - Link to return to admin dashboard
 
 -User logs out of the system
